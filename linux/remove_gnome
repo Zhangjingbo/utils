@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+my $keyword = "gnome";
+my @aptitude_search_results = system("aptitude search $keyword|grep ^i ");
+my $remove_command = "aptitude remove --purge ";
+foreach (@aptitude_search_results){
+	m/^i\s*A?\s*(^\s+)\s/ and $remove_command .= "$1 ";
+}
+
+print "remove command is now $remove_command\n";
+system($remove_command);
