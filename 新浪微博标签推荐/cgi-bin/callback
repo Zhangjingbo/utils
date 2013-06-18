@@ -1,0 +1,34 @@
+#!/usr/bin/perl
+use warnings;
+use strict;
+use CGI;
+use Net::OAuth2::Client;
+use utf8;
+
+my $v密码文件 = "../密码文件";
+open (RD, "<$v密码文件") or die "Cannot open file $v密码文件 来读取";
+my ($app_key, $app_secret) = <RD>;
+chomp $app_key;
+chomp $app_secret;
+close RD;
+
+my $access_token;
+my $q = CGI->new;
+my $code = $q->param("code");
+my %config = (
+    name => '新浪微博',
+    client_id => $app_key,
+    client_secret => $app_secret,
+    site => 'https://api.weibo.com',
+    authorize_path => '/oauth2/authorize',
+    access_token_path => '/oauth2/access_token',
+    redirect_uri => "http://sinatag.bikouchan.org/cgi-bin/callback");
+
+my $auth = Net::OAuth2::Profile::WebServer->new(%config);
+
+$access_token = $auth->get_access_token($code);
+
+print $q->header;
+print $q->start_html;
+print $access_token;
+print $q->end_html;
