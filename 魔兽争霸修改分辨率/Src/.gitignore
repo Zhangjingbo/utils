@@ -1,0 +1,6 @@
+__history
+*.cfg
+*.local
+*.bdsproj
+*.identcache
+*.res
