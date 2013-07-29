@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2013-07-29 10:53:26.162.pas,D:\我的资料库\Documents\RAD Studio\Projects\Unit2.pas=D:\我的资料库\Documents\GitHub\utils\魔兽争霸修改分辨率\Src\Unit2.pas</Transaction>
+    <Transaction>2013-07-29 10:53:26.162.dfm,D:\我的资料库\Documents\RAD Studio\Projects\Unit2.dfm=D:\我的资料库\Documents\GitHub\utils\魔兽争霸修改分辨率\Src\Unit2.dfm</Transaction>
+    <Transaction>2013-07-29 10:53:28.276.bdsproj,D:\我的资料库\Documents\RAD Studio\Projects\Project1.bdsproj=D:\我的资料库\Documents\GitHub\utils\魔兽争霸修改分辨率\Src\Project1.bdsproj</Transaction>
+    <Transaction>2013-07-29 10:53:48.820.pas,D:\我的资料库\Documents\GitHub\utils\魔兽争霸修改分辨率\Src\Unit2.pas=D:\我的资料库\Documents\GitHub\utils\魔兽争霸修改分辨率\Src\MainFrm.pas</Transaction>
+    <Transaction>2013-07-29 10:53:48.820.dfm,D:\我的资料库\Documents\GitHub\utils\魔兽争霸修改分辨率\Src\Unit2.dfm=D:\我的资料库\Documents\GitHub\utils\魔兽争霸修改分辨率\Src\MainFrm.dfm</Transaction>
+    <Transaction>2013-07-29 11:16:35.434.bdsproj,D:\我的资料库\Documents\GitHub\utils\魔兽争霸修改分辨率\Src\Project1.bdsproj=D:\我的资料库\Documents\GitHub\utils\魔兽争霸修改分辨率\Src\War3Video.bdsproj</Transaction>
+  </Transactions>
+</BorlandProject>
