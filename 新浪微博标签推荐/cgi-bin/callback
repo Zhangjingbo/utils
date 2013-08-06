@@ -4,6 +4,8 @@ use strict;
 use CGI;
 use Net::OAuth2::Client;
 use utf8;
+use LWP::Simple;
+use Data::Dumper;
 
 my $v密码文件 = "../密码文件";
 open (RD, "<$v密码文件") or die "Cannot open file $v密码文件 来读取";
@@ -27,8 +29,19 @@ my %config = (
 my $auth = Net::OAuth2::Profile::WebServer->new(%config);
 
 $access_token = $auth->get_access_token($code);
-
+#my $v回应 = $access_token->get('https://api.weibo.com/2/statuses/user_timeline.json&screen_name=哈哈');
+#$v回应->is_success or die "Something Error: " . $v回应->status_line;
 print $q->header;
 print $q->start_html;
-print $access_token;
+#print "Yay, it worked:" . $v回应->decoded_content;
+#print Dumper($access_token);
+#my $v下载 = get("https://api.weibo.com/2/statuses/user_timeline.json");
+#if ($v下载->is_success){
+#    print $v下载->content;
+# }
+# else{
+#     print "没有成功下载到内容";
+# }
+print "Just a test ";
+print $access_token->{NOA_access_token};
 print $q->end_html;
