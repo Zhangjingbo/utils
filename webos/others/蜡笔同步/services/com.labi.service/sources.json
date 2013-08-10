@@ -1,0 +1,9 @@
+[
+{"source": "readAssistant.js"},
+{"source": "writeAssistant.js"},
+{"source": "uploadAssistant.js"},
+{"source": "deleteAssistant.js"},
+{"source": "fileinfoAssistant.js"},
+{"source": "deviceAssistant.js"},
+{"source": "upgradeAssistant.js"}
+]
