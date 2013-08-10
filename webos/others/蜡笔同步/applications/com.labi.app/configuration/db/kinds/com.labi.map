@@ -1,0 +1,42 @@
+{
+	"id":"com.labi.map:1",
+	"owner":"com.labi.app",
+	"schema":{
+    	"type":"object",
+	    "properties":{
+            "type":{
+	            "type":"string",
+	            "optional":false,
+                "enum": ["contact","sms","crc","calendar","photo"]
+            },
+            "username":{
+	            "type":"string",
+	            "optional":false
+            },
+	        "luid":{
+	            "type":"string",
+	            "optional":false
+	        },
+	        "lrev":{
+	            "type":"integer",
+	            "optional":false,
+                "description":"Max client revision"
+	        },
+	        "guid":{
+	            "type":"integer",
+	            "optional":false,
+	            "description":"Max server revision"
+	        },
+	        "erev":{
+	            "type":"integer",
+	            "optional":false,
+	            "description":"extensions revision"
+	        }
+	    }
+	},
+	"indexes":[
+        {"name": "type", "props": [{"name": "type"}, {"name": "username"}]},
+        {"name": "luid", "props": [{"name": "luid"}, {"name": "username"}]}
+	],
+	"sync": false
+}

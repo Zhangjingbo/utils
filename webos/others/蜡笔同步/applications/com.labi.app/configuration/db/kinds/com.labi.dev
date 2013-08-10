@@ -1,0 +1,17 @@
+{
+	"id":"com.labi.dev:1",
+	"owner":"com.labi.app",
+	"schema":{
+    	"type":"object",
+	    "properties":{
+	        "imei":{
+	            "type":"string",
+	            "optional":true
+	        }
+	    }
+	},
+	"indexes":[
+    
+	],
+	"sync": false
+}

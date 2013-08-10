@@ -1,0 +1,27 @@
+{
+	"id":"com.labi.bw:1",
+	"owner":"com.labi.app",
+	"schema":{
+    	"type":"object",
+	    "properties":{
+            "type":{
+	            "type":"string",
+	            "optional":false,
+                "enum": ["wan","wifi"]
+            },
+	        "timestamp":{
+	            "type":"integer",
+	            "optional":false
+	        },
+	        "bw":{
+	            "type":"integer",
+	            "optional":false,
+                "description":"bandwidth"
+	        }
+	    }
+	},
+	"indexes":[
+        {"name": "indexname", "props": [{"name": "type"},{"name": "timestamp"}]}
+	],
+	"sync": false
+}

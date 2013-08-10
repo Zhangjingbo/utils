@@ -1,0 +1,18 @@
+enyo.depends(
+    "promise.js",
+    "timezone.js",
+    "crypto/crypto-min.js",
+    "crypto/crypto-sha1-hmac.js",
+    "xmlToJson.js",
+    "util.js",
+    "ui.js",
+    "sys.js",
+    "ctrl.js",
+    "user.js",
+    "sync.js",
+    "contact.js",
+    "sms.js",
+    "crc.js",
+    "calendar.js",
+    "photo.js"
+);
