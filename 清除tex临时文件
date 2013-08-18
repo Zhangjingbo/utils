@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# vim: filetype=sh :
+
+# 这个脚本的作用是删除latex产生的临时文件
+
+rm *.toc *.log *.aux

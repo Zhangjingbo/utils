@@ -1,2 +1,0 @@
-#!/bin/bash
-rsync -avz ./ dudu@bikouchan.org:/srv/www/sinatag.bikouchan.org

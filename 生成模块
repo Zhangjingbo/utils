@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ $# -lt 2 ]
+then
+	echo "Usage: $0 <filetype> <newfilename(s)>"
+	exit
+else
+	source_file="$HOME/.vim/templates/$1"
+	if [  ! -e $source_file ]
+	then
+	        echo "没有样板文件"
+	        exit 1
+        fi
+	shift
+	for newfilename
+	do
+		cp $source_file $newfilename
+	done
+fi

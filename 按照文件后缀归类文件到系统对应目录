@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# 这个脚本用来清理一个目录中的内容，按后缀把其中的文件移动到各分类目录中
+
+# 参数为要清理的目录
+
+# mv 使用 -n 选项不覆盖原有文件，并且关闭了错误提示, 即使用了 &>/dev/null
+
+ToSplit=$1
+
+
+# 分类目录
+MusicDir=~/media/music
+VideoDir=~/media/video
+PictureDir=~/media/pic
+EbookDir=~/Documents/ebook
+
+
+# 检测参数是否为目录，如果不是退出
+if [ -d $ToSplit ]
+then
+	cd $ToSplit  # 进入目录
+else
+	echo "$ToSplit is not a directory!"
+	exit 1
+fi
+
+
+# 检测上面的分类目录是否为目录，如果不是则拒绝移动，否则允许
+
+if [ -d $MusicDir ]
+then
+	mv -n *.mp3 *.wma *.ogg $MusicDir &>/dev/null
+else
+	echo "$MusicDir is not a directory, move action refused!"
+fi
+
+
+if [ -d $VideoDir ]
+then
+	mv -n *.rmvb *.rm  *.RMVB *.RM *.flv *.FLV *.video *.VIDEO \
+		*.mp4 *.MP4 *.3gp *.3GP \
+		$VideoDir &>/dev/null
+else
+	echo "$VideoDir is not a directory, move action refused!"
+fi
+
+
+if [ -d $PictureDir ]
+then
+	mv -n	*.png *.gif *.jpg *.jpeg *.xpm *.eps \
+			*.PNG *.GIF *.JPG *.JPEG *.XPM *.EPS \
+			$PictureDir &>/dev/null
+else
+	echo "$PictureDir is not a directory, move action refused!"
+fi
+
+if [ -d $EbookDir ]
+then
+	mv 	-n *.pdf *.PDF $EbookDir &>/dev/null
+else
+	echo "$EbookDir is not a directory, move action refused!"
+fi

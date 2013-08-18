@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=com.labi.service
-Exec=/usr/bin/com.labi.service -n /media/cryptofs/apps/usr/palm/services/com.labi.service

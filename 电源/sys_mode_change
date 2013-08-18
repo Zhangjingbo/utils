@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+#	这个程序是用来修改一些文件的权限，
+#	修改这些文件的权限的目的是使得修改这些
+#	文件的内容。
+#
+### BEGIN INIT INFO
+# Provides:          sys_mode_change
+# Required-Start:    
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# Default-Start:     2 3 5
+# Default-Stop:
+# Description:      change some file's mode in /sys
+### END INIT INFO
+
+SUSPEND_CONFIG_FILE=/sys/power/state
+BACKLIGHT_CONFIG_FILE=/sys/class/backlight/acpi_video0/brightness
+
+suspend_mode=0666
+backlight_mode=0666
+
+chmod $suspend_mode			$SUSPEND_CONFIG_FILE
+chmod $backlight_mode		$BACKLIGHT_CONFIG_FILE

@@ -1,9 +1,0 @@
-{
-  "app": "com.labi.app",
-  "icon": "images/labi.png",
-  "id": "com.labi",
-  "package_format_version": 2,
-  "services": ["com.labi.service"],
-  "vendor": "Labi",
-  "version": "1.0.1"
-}

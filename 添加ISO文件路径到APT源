@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+# 这个脚本用来把一个光盘加入源列表中, 适用于debian系列系统
+
+iso_path=$1
+mount_point="/cdrom"
+mkdir -pv $mount_point &>/dev/null
+
+mount $iso_path $mount_point -o loop -t iso9660
+cat >>
+
+# vim: set filetype=sh :

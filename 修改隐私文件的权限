@@ -1,0 +1,7 @@
+#!/bin/bash
+# 这个脚本用来修改一部分隐私文件的权限为600,并对修改进行记录
+mode=0600
+diary="~/Documents/diary/*"
+secret_files="~/.fetchmailrc ~/.msmtprc ~/.muttrc "
+cmd="chmod $mode $diary $secret_files"
+eval $cmd

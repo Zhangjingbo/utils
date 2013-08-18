@@ -1,0 +1,58 @@
+#! /bin/bash
+
+### BEGIN INIT INFO
+# Provides:				splash_all
+# Required-Start:		$local_fs 
+# Should-Start:			
+# Should-Stop:			
+# Required-Stop:		
+# Default-Start:		3 5
+# Default-Stop:			0 1 2 6
+# Short-Description:	Decorate the tty1 ~ tty6 terminal
+# Description:			Use the command splash to decorate tty1 ~ tty6, like the original tty1
+### END INIT INFO
+
+. /etc/rc.status
+rc_reset
+
+test -f /proc/splash -o "$1" = stop || exit 5
+splashcfg="/etc/bootsplash/themes/openSUSE/config/bootsplash-1024x768.cfg"
+
+case "$1" in
+    start)
+	test -x /sbin/splash || exit 5
+	for unit in 1 2 3 4 5 6 ;do 
+		/sbin/splash -s -u "$unit" -n "$splashcfg";
+	done
+	test -z "$startstr" && rc_status -v
+	;;
+    stop)
+	;;
+    try-restart)
+	$0 status >/dev/null &&  $0 restart
+
+	rc_status
+	;;
+    restart)
+	$0 start
+
+	rc_status
+	;;
+    force-reload)
+	$0 try-restart
+	rc_status
+	;;
+    reload)
+	$0 try-restart
+	rc_status
+	;;
+    status)
+	;;
+    *)
+	echo "Usage: $0 {start|stop|status|try-restart|restart|force-reload|reload}"
+	exit 1
+	;;
+esac
+rc_exit
+
+# 这个脚本用来设置 tty1 -  tty6 的背景图片, 支持 opensuse

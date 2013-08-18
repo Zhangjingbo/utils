@@ -1,0 +1,61 @@
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides: ilight
+# Required-Start: 
+# Required-Stop:
+# Default-Stop:
+# Default-Start: 2 3 4 5
+# Default-Stop 0 1 6
+# Short-Description: ilight, my own light control program
+# Description: 调节亮度，不依赖于gnome-power-manager, 可以在fvwm之类的环境中使用
+### END INIT INFO
+
+#config and variables
+backlight_config_file=/sys/class/backlight/acpi_video0/brightness
+default_backlight=4   
+config_file_access=0666
+
+do_start()
+{
+	chmod $config_file_access $backlight_config_file
+	#改变配置文件的权限，使得普通用户也可以改变亮度
+
+	echo $default_backlight > $backlight_config_file
+	#改变亮度
+}
+do_restart()
+{
+	do_start;
+}
+
+do_stop()
+{
+	chmod 0644 $backlight_config_file;
+}
+
+do_status()
+{
+	cat $backlight_config_file;
+}
+
+
+case "$1" in
+	start|"")
+		do_start
+		;;
+	restart|reload|force-reload)
+		do_restart
+		;;
+	stop)
+		do_stop
+		;;
+	status)
+		do_status
+		;;
+	*)
+		echo $1 > $backlight_config_file
+		;;
+esac
+
+:

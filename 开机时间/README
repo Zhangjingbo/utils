@@ -1,0 +1,11 @@
+	开机时间的计算和显示是通过两个自启动程序实现的，一个加入/etc/init.d/
+当所有启动脚本执行完毕后执行，记录信息并处理之后把要输出的时间信息字符串
+输出到文件 /tmp/start_time/data 文件之中。另一个就要加入到 Gnome 或者 
+KDE 等等的自启动脚本中，这样当Gnome或者KDE打开的时候就可以进行时间信息的
+显示了。为了避免每次注销之后重新登录进来的时候再输出信息，在输出脚本中加
+入判断
+
+要加入init的文件 start_time_count.bash
+要进行输出的文件 start_time_output.bash
+
+目前运行的环境是  Gnome 2.x 带有 notify-send 程序的系统

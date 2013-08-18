@@ -1,0 +1,46 @@
+#!/bin/bash
+# vim: set filetype=sh :
+
+# 这个脚本用来设置桌面的背景
+
+#  错误
+err_exist=1
+err_read=2
+
+# 处理参数, 参数为要设置为桌面背景的图片的路径，以后可能也会支持一些选项
+background_picture=$1
+if !  test -e  $background_picture 
+then
+	echo "要设置为背景的图片 $background_picture 不存在"
+	exit $err_exist
+elif ! test -r $background_picture
+then
+	echo "要设置为背景的图片 $background_picture 不可读"
+	exit $err_read
+fi
+
+function fvwm_set_background()
+{
+	tmp_file=$(mktemp --suffix=.png)
+	convert  $background_picture $tmp_file
+	fvwm-root $tmp_file
+	rm $tmp_file
+}
+
+#检测桌面环境
+# 如果没有定义DESKTOP_SESSION变量，那么直接退出
+if ! test -v DESKTOP_SESSION
+then
+	exit 
+fi
+
+if test x$DESKTOP_SESSION = "xFvwm"
+then
+	fvwm_set_background
+elif test x$DESKTOP_SESSION = "xgnome"
+then
+	gnome_set_background
+elif test x$DESKTOP_SESSION = "xkde"
+then
+	kde_set_background
+fi

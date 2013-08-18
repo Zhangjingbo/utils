@@ -1,0 +1,116 @@
+#! /bin/bash
+
+# Name:    ilight
+# Version:  0.02
+# Description: adjust the brightness
+# Author: Yudu Ban
+
+### BEGIN INIT INFO
+# Provides: ilight
+# Required-Start: 
+# Required-Stop:
+# Default-Stop:
+# Default-Start: 2 3 4 5
+# Default-Stop 0 1 6
+# Short-Description: ilight, my own light control program
+# Description: 用来调节亮度
+### END INIT INFO
+
+#config and variables
+backlight_config_file=/sys/class/backlight/acpi_video0/brightness
+default_brightnessness=7  
+privilege=644
+
+. /lib/lsb/init-functions
+
+# read configures in /etc/brightness if exists
+[ -r /etc/brightness ] && . /etc/brightness
+
+do_add()
+{
+	read nowlight<$backlight_config_file
+	((nowlight++))
+	echo $nowlight > $backlight_config_file
+}
+
+do_minus()
+{
+	read nowlight<$backlight_config_file
+	if [ $nowlight -gt 0 ]
+	then
+	    ((nowlight--))
+	fi
+	echo $nowlight > $backlight_config_file
+}
+
+do_start()
+{
+	if [ $UID == 0 ]
+	then
+		chmod $privilege $backlight_config_file
+		# change the file $backlight_config_file's privilege
+	fi
+
+
+	echo $default_brightness > $backlight_config_file
+	#改变亮度
+}
+do_restart()
+{
+	do_start;
+}
+
+do_stop()
+{
+	chmod 0644 $backlight_config_file;
+}
+
+do_status()
+{
+	cat $backlight_config_file;
+}
+
+
+case "$1" in
+	start|"")
+		do_start
+		;;
+	restart|reload|force-reload)
+		do_restart
+		;;
+	stop)
+		do_stop
+		;;
+	status)
+		do_status
+		;;
+	add)
+		do_add
+		;;
+	minus)
+		do_minus
+		;;
+	*)
+		echo $1 > $backlight_config_file
+		;;
+esac
+
+:
+
+# 使用说明
+#这个程序要放在 /etc/init.d/ 里面注册自启动之后用来调节屏幕默认亮度,和改变配置文件的权限为可写。
+# 也可以用在正常使用过程中随时调节亮度
+#
+# 	应用示例
+# 亮度增加一个幅度 
+# 	$./ilight add
+# 亮度减小一个幅度
+#	$./ilight minus
+# 指定亮度
+#	$./ilight 6
+# 设置默认亮度
+# 	 edit in file /etc/brightness with this format
+#       brightness:5
+#       replace 5 with the your own preference
+
+

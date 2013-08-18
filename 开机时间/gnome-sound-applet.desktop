@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Start Time Control
+Comment=Count the start time, and save it to /tmp/start_time/data
+Exec=/home/lotutu/devel/bash/开机时间/start_time_count.bash
+Terminal=false
+Type=Application
