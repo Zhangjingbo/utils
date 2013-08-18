@@ -1,0 +1,62 @@
+#!/usr/bin/perl
+# vim:filetype=perl :
+use warnings;
+use strict;
+use File::Type;
+use CGI qw/:standard/;
+
+my $q = new CGI;
+my $ShareDirectory = "/home/yudu/公共的";
+my $Script = "/cgi-bin/share.pl";
+my $path;
+defined $q->param("path") and $path = $q->param("path")
+	or $path = "/";
+
+
+
+E404() if !-e "$ShareDirectory/$path";
+ShowDirectory() if -d "$ShareDirectory/$path" or ShowFile();
+
+sub E404{
+	print header(-type=>'text/html', -charset=>'utf-8');
+	print $q->redirect("/404.html");
+	print end_html;
+}
+
+sub ShowDirectory{
+	print header(-type=>'text/html', -charset=>'utf-8');
+	print  start_html(-title => "文件分享 -- $path");
+	print  "<a href=\"$Script?path=",_format_path(_get_parent_dir($path)),"\">返回上一层</a>\n";
+	print "<ul>\n";
+	chdir "$ShareDirectory/$path";
+	foreach my $file (glob ("*")){
+		print "<li><a href=\"$Script?path=", _format_path("$path/$file"),"\">$file</a></li>\n";
+	}
+	print "</ul>\n";
+	print end_html;
+}
+
+sub ShowFile{
+	open (my $RD,"<$ShareDirectory/$path") or E404();
+	my $ft = File::Type->new();
+	my $filetype = $ft->mime_type("$ShareDirectory/$path");
+	my $file = $path;
+	$file =~ s/.*\///;
+	print "Content-Type: $filetype\n";
+	print "Content-Disposition: attachment; filename=\"$file\"\n\n";
+	print join '',<$RD>;
+}
+
+sub _format_path{
+# 返回格式规范的路径，删除掉多余的 '/' 字符
+	my $path = shift;
+	$path =~ s/\/{2,}/\//g;
+	return  $path;
+}
+
+sub _get_parent_dir{
+	my $path = shift;
+	$path eq "/" and return $path;
+	$path =~ s/[^\/]*\/?$/\//;
+	return $path;
+}

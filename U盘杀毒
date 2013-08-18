@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+# vim: set filetype=perl :
+
+# 用来删除U盘在windows xp系统下很可能沾染上的各种病毒
+# 版本： 0.01
+use warnings;
+use strict;
+use File::Path qw/remove_tree/;
+use File::Find;
+use Digest::MD5 qw/md5/;
+
+my $base_directory = shift;
+chdir $base_directory or die "无法进入指定的目录$base_directory,请检查指定位置是否存在或者有无访问权限\n";
+
+# 消除autorun.inf
+my $autofile = "autorun.inf";
+unlink "$autofile" and mkdir "$autofile" if (-e "$autofile" and -f "$autofile");
+
+# 删除RECYCLER目录 
+my $recycler_dir="RECYCLER";
+rmtree("$recycler_dir") if (-e $recycler_dir and -d $recycler_dir);
+
+# 删除伪装成目录形式的exe文件
+# 这些exe文件的特征是它们是相同的文件，而且一般来说会有很多个这样的文件，所以打算如果有两个或以上内容相同的exe文件，则删除的逻辑来处理。这样处理的缺点是不能处理exe伪装文件夹病毒只有一个文件的情况。
+
+find (\&remove_virus, ".");
+
+my %md5_path; # md5为键，而path为值
+
+# 这个函数把可疑文件删除掉，依据的原理是md5相同的exe后缀文件都要删除掉
+sub remove_virus{
+	my $path = shift;
+#不对目录做处理
+	return if -d $path;
+
+#	跳过不是exe文件的文件
+	$path =~ m/\.exe$/ or return;
+
+# 计算md5
+	my $md5_value = md5($path);
+#如果md5值之前已经出现过，则说明是病毒
+	if (defined $md5_path{$md5_value}){
+		unlink $path;
+		unlink $md5_path{$md5_value} if -f $md5_path{$md5_value};
+	}
+}
